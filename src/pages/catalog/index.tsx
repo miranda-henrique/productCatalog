@@ -1,6 +1,6 @@
 import { ProductItem } from '../../components';
 
-import styles from './Catalog.module.css';
+import styles from '../../styles/pages/Catalog.module.css';
 
 
 export default function Catalog() {
