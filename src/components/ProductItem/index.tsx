@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import productImg from '../../../public/product.png';
 import ProductPrice from '../ProductPrice';
 
 import styles from './ProductItem.module.css';

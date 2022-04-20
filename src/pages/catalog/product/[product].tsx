@@ -1,13 +1,17 @@
+import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import arrow from '../../../../public/back-arrow.png';
-import productImg from '../../../../public/product-big.png';
+import { ProductProps } from '../../../@types';
 import { ProductPrice } from '../../../components';
 
 import styles from '../../../styles/pages/Product.module.css';
+import { api } from '../../../utils/api';
 
 
-export default function ProductDetails() {
+export default function ProductDetails(props: ProductProps) {
+    const { name, description, price, imgUrl } = props.productDetails;
+
     return (
         <div className={styles.productDetailsContainer}>
 
@@ -26,26 +30,28 @@ export default function ProductDetails() {
                         <div className={`text-center ${styles.productDetailsCard} ${styles.imgContainer}`}
                         >
                             <Image
-                                src={productImg}
-                                alt='Nome do produto'
+                                src={imgUrl}
+                                width='350'
+                                height='350'
+                                alt={name}
                                 className={styles.productDetailsImage}
                             />
                         </div>
 
                         <div className={`d-md-flex justify-content-md-between flex-md-row flex-lg-column`}>
                             <h1 className={styles.productDetailsName}>
-                                Computador Intel Core i7 2.4Ghz
+                                {name}
                             </h1>
-                            <ProductPrice price='4799,99' />
+                            <ProductPrice price={String(price)} />
                         </div>
                     </div>
 
                     <div className={`col-xl-6 ${styles.productDetailsCard}`}>
                         <h1 className={styles.productDescriptionTitle}>
-                            Descrição do Produto
+                            Descrição do produto:
                         </h1>
                         <p className={styles.productDescriptionText}>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat dolores nostrum, necessitatibus, molestiae tenetur modi beatae fugit earum laudantium qui voluptates saepe tempore corrupti dolor autem dolore. Hic, inventore doloremque mollitia cumque officiis unde obcaecati. Dolorum labore sapiente, quae blanditiis id in aliquam, eos necessitatibus, aliquid molestiae dicta esse totam.
+                            {description}
                         </p>
                     </div>
 
@@ -53,4 +59,16 @@ export default function ProductDetails() {
             </div>
         </div>
     );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { product: id } = context.query;
+    const response = await api.get(`/products/${id}`);
+    const productDetails = response.data;
+
+    return {
+        props: {
+            productDetails: productDetails,
+        }
+    };
 }
