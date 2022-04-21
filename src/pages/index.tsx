@@ -23,7 +23,10 @@ const Home: NextPage = () => {
           </p>
           <Link href='/catalog'>
             <a>
-              <ButtonWithIcon label='Inicie agora a sua busca' />
+              <ButtonWithIcon
+                label='Inicie agora a sua busca'
+                type={`button`}
+              />
             </a>
           </Link>
         </div>
@@ -33,7 +36,7 @@ const Home: NextPage = () => {
         </div>
 
       </div>
-      
+
     </div>
   );
 };

@@ -5,6 +5,7 @@ export type NavLinkProps = {
 
 export type ButtonWithIconProps = {
     label: string;
+    type: "button" | "reset" | "submit" | undefined;
 };
 
 export type ProductPriceProps = {
@@ -32,4 +33,9 @@ export type ProductResponse = {
 
 export type ProductProps = {
     productDetails: ProductItemProps,
+};
+
+export type AuthData = {
+    username?: string;
+    password?: string;
 };
