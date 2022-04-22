@@ -1,4 +1,6 @@
+import jwtDecode from 'jwt-decode';
 import queryString from 'query-string';
+import { AccessToken, Role } from '../@types';
 import { api } from './api';
 
 
@@ -11,7 +13,7 @@ export const loginUser = async (username: string, password: string) => {
 
     const authToken = String(process.env.NEXT_PUBLIC_AUTH_TOKEN);
 
-    await api.post(
+    const login = await api.post(
         '/oauth/token',
         data,
         {
@@ -24,6 +26,38 @@ export const loginUser = async (username: string, password: string) => {
             const { access_token } = response.data;
 
             localStorage.setItem('@dscatalog/token', JSON.stringify(access_token));
+
+            return response.data;
         })
         .catch((error) => console.error(error));
+
+    return login;
+};
+
+export const isAllowedByRole = (routeRoles: Role[] = []) => {
+    if (routeRoles.length === 0) return true;
+
+    const { authorities } = getAccessTokenDecoded();
+
+    return routeRoles.some((role) => authorities?.includes(role));
+};
+
+export const getAccessTokenDecoded = () => {
+    const sessionData = getSessionData();
+
+    try {
+        const tokenDecoded = jwtDecode(sessionData.access_token);
+        return tokenDecoded as AccessToken;
+    } catch (error) {
+        return {} as AccessToken;
+    }
+};
+
+export const getSessionData = () => {
+    if (typeof window !== undefined) {
+        const sessionData = localStorage.getItem('authData') || '{}';
+        const parsedSessionData = JSON.parse(sessionData);
+
+        return parsedSessionData as LoginResponse;
+    }
 };

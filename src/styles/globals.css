@@ -28,6 +28,11 @@ a {
   color: #ffffff !important;
 }
 
+.active-sidebar-item {
+  background: rgba(64, 123, 255, 0.3) !important;
+  color: #407bff !important;
+}
+
 .border-radius-10 {
   border-radius: 10px;
 }
@@ -70,4 +75,3 @@ a {
 .margin-bottom-30 {
   margin-bottom: 30px;
 }
-

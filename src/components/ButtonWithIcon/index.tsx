@@ -5,10 +5,11 @@ import arrow from '../../../public/arrow.svg';
 import styles from './ButtonWithIcon.module.css';
 
 
-export default function ButtonWithIcon({ label, type }: ButtonWithIconProps) {
+export default function ButtonWithIcon({ label, type, disabled }: ButtonWithIconProps) {
     return (
         <div className={`d-flex ${styles.buttonContainer}`}>
             <button
+                disabled={disabled}
                 className={`btn btn-primary ${styles.btnIcon}`}
                 type={type}
             >

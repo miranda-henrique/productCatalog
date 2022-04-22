@@ -1,26 +1,36 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import { ButtonWithIcon } from '../../../components';
 import backgroundImg from '../../../../public/auth-page-image.png';
 
 import styles from '../../../styles/pages/AuthPage.module.css';
 import { AuthData } from '../../../@types';
 import { loginUser } from '../../../utils/auth';
+import { useState } from 'react';
 
 
 export default function AuthPage() {
+    const [isLoading, setIsLoading] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const router = useRouter();
 
-    const onSubmit = async (data: AuthData) => {
-        console.log({ data });
+    const onSubmit = (data: AuthData) => {
+        setIsLoading(true);
         let { username, password } = data;
 
         if (username && password) {
-            loginUser(username, password);
+            loginUser(username, password)
+                .then((response) => {
+                    response.access_token && router.reload();
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => setIsLoading(false));
         }
     };
-
 
     return (
         <div className={styles.authContainer}>
@@ -91,7 +101,10 @@ export default function AuthPage() {
                                 </a>
                             </Link>
                             <div className={`d-flex align-items-center justify-content-center ${styles.loginSubmit}`}>
-                                <ButtonWithIcon label='login' type='submit' />
+                                <ButtonWithIcon
+                                    disabled={isLoading}
+                                    label='login'
+                                    type='submit' />
                             </div>
                             <div className={`text-center`}>
                                 <span className={styles.notRegistered}>

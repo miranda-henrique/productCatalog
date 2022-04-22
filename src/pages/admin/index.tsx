@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
-import AuthPage from './auth';
-import Dashboard from './dashboard';
+import { useEffect, useState } from "react";
+import Login from "./auth";
+import Dashboard from './dashboard/[index]';
 
 
-export default function AdminPage() {
+export default function Admin() {
     const [logged, setLogged] = useState(false);
 
+
     useEffect(() => {
-        if (localStorage.getItem('@dscatalog/item')) {
+        if (localStorage.getItem("@dscatalog/token")) {
             setLogged(true);
         } else {
             setLogged(false);
@@ -16,12 +17,9 @@ export default function AdminPage() {
 
 
     if (logged) {
-        return (
-            <Dashboard />
-        );
+        return <Dashboard />;
     } else {
-        return (
-            <AuthPage />
-        );
+        return <Login />;
     }
 }
+
