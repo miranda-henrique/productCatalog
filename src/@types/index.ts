@@ -44,6 +44,16 @@ export type ProductItemProps = {
     categories: Category[],
 };
 
+export type ProductItemPropsEditForm = {
+    id?: number,
+    name?: string,
+    description?: string,
+    price?: number,
+    imgUrl?: string,
+    date?: string,
+    categories?: Category[],
+};
+
 export type ProductPriceProps = {
     price: string;
 };

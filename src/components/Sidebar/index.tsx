@@ -10,8 +10,8 @@ export default function Sidebar() {
         <div className={styles.adminNavContainer}>
             <ul>
                 <li>
-                    <Link href='/admin/dashboard/products'>
-                        <a className={`${returnActiveItem('/admin/dashboard/products')
+                    <Link href='/admin'>
+                        <a className={`${returnActiveItem('/admin')
                             + ' '
                             + styles.adminNavItem}`
                         }>
@@ -36,7 +36,7 @@ export default function Sidebar() {
                                 <a className={`${returnActiveItem('/admin/dashboard/users')
                                     + ' '
                                     + styles.adminNavItem}`
-                                }>
+                                 }>
                                     Usuários
                                 </a>
                             </Link>

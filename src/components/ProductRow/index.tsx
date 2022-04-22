@@ -1,5 +1,6 @@
 import { ProductItemProps } from '../../@types';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import styles from './ProductRow.module.css';
 import ProductPrice from '../ProductPrice';
@@ -44,12 +45,14 @@ export default function ProductRow(product: ProductItemProps) {
             </div>
             <div className={`d-flex flex-row-reverse flex-md-column justify-content-between ${styles.buttonContainer}`}
             >
-                <button
-                    type='button'
-                    className={styles.btnEdit}
-                >
-                    Editar
-                </button>
+                <Link href={`/admin/dashboard/product/${product.id}`}>
+                    <button
+                        type='button'
+                        className={styles.btnEdit}
+                    >
+                        Editar
+                    </button>
+                </Link>
                 <button
                     type='button'
                     className={styles.btnDelete}
