@@ -3,9 +3,23 @@ import Image from 'next/image';
 
 import styles from './ProductRow.module.css';
 import ProductPrice from '../ProductPrice';
+import { api } from '../../utils/api';
 
 
 export default function ProductRow(product: ProductItemProps) {
+    const deleteProduct = async (productId: number) => {
+        await api({
+            url: `/products/${productId}`,
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${JSON.parse(
+                    localStorage.getItem('@dscatalog/token') ?? '')}`
+            }
+        });
+
+        history.go(0);
+    };
+
     return (
         <div className={`d-flex flex-column flex-md-row align-items-center p-4 ${styles.productRowContainer}`}
         >
@@ -30,8 +44,19 @@ export default function ProductRow(product: ProductItemProps) {
             </div>
             <div className={`d-flex flex-row-reverse flex-md-column justify-content-between ${styles.buttonContainer}`}
             >
-                <button type='button' className={styles.btnEdit}>Editar</button>
-                <button type='button' className={styles.btnDelete}>Excluir</button>
+                <button
+                    type='button'
+                    className={styles.btnEdit}
+                >
+                    Editar
+                </button>
+                <button
+                    type='button'
+                    className={styles.btnDelete}
+                    onClick={() => deleteProduct(product.id)}
+                >
+                    Excluir
+                </button>
             </div>
         </div>
     );
