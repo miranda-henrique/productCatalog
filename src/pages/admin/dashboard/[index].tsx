@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
+import { ProductResponse } from '../../../@types';
 import { Sidebar } from '../../../components';
 import { Products, Users, Categories } from './pages';
 
 
-export default function Dashboard() {
+export default function Dashboard({ products }: ProductResponse) {
     const router = useRouter();
 
     const { index } = router.query;
@@ -12,7 +13,7 @@ export default function Dashboard() {
         switch (index) {
             case 'products':
                 return (
-                    <Products />
+                    <Products products={products} />
                 );
             case 'users':
                 return (
@@ -24,7 +25,7 @@ export default function Dashboard() {
                 );
             default:
                 return (
-                    <Products />
+                    <Products products={products} />
                 );
         }
     };
