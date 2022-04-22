@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import queryString from 'query-string';
-import { AccessToken, Role } from '../@types';
+import { AccessToken, LoginResponse, Role } from '../@types';
 import { api } from './api';
 
 
@@ -46,7 +46,7 @@ export const getAccessTokenDecoded = () => {
     const sessionData = getSessionData();
 
     try {
-        const tokenDecoded = jwtDecode(sessionData.access_token);
+        const tokenDecoded = jwtDecode(sessionData!.access_token);
         return tokenDecoded as AccessToken;
     } catch (error) {
         return {} as AccessToken;
