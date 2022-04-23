@@ -1,13 +1,17 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { useEffect } from 'react';
 import { Navbar } from '../components';
 
-import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/custom.scss';
 import '../styles/globals.css';
 
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    typeof document !== 'undefined' ? require('bootstrap/dist/js/bootstrap') : null;
+  }, []);
+
   return (
     <>
       <Head>
