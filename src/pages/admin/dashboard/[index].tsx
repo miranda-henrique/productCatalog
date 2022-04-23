@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import { ProductResponse } from '../../../@types';
 import { Sidebar } from '../../../components';
-import { Products, Users, Categories } from './pages';
+import Products from './pages/products';
+import Users from './pages/users';
+import Categories from './pages/categories';
 
 
 export default function Dashboard({ products }: ProductResponse) {

@@ -54,7 +54,7 @@ export const getAccessTokenDecoded = () => {
 };
 
 export const getSessionData = () => {
-    if (typeof window !== undefined) {
+    if (typeof window !== 'undefined') {
         const sessionData = localStorage.getItem('authData') || '{}';
         const parsedSessionData = JSON.parse(sessionData);
 

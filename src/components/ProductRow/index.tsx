@@ -9,12 +9,17 @@ import { api } from '../../utils/api';
 
 export default function ProductRow(product: ProductItemProps) {
     const deleteProduct = async (productId: number) => {
+
+        let localToken: string = '';
+        if (typeof window !== 'undefined') {
+            localToken = String(localStorage.getItem('@dscatalog/item'));
+        }
+
         await api({
             url: `/products/${productId}`,
             method: 'DELETE',
             headers: {
-                Authorization: `Bearer ${JSON.parse(
-                    localStorage.getItem('@dscatalog/token') ?? '')}`
+                Authorization: `Bearer ${JSON.parse(localToken) ?? ''}`
             }
         });
 
@@ -45,7 +50,7 @@ export default function ProductRow(product: ProductItemProps) {
             </div>
             <div className={`d-flex flex-row-reverse flex-md-column justify-content-between ${styles.buttonContainer}`}
             >
-                <Link href={`/admin/dashboard/product/${product.id}`}>
+                <Link href={`/admin/dashboard/product/${product.id}`} passHref>
                     <button
                         type='button'
                         className={styles.btnEdit}

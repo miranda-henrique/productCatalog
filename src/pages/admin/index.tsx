@@ -10,7 +10,7 @@ export default function Admin({ products }: ProductResponse) {
 
 
     useEffect(() => {
-        if (localStorage.getItem("@dscatalog/token")) {
+        if (typeof window !== 'undefined' && localStorage.getItem("@dscatalog/token")) {
             setLogged(true);
         } else {
             setLogged(false);

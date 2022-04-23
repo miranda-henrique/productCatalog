@@ -41,7 +41,7 @@ export default function EditForm(productDetails: ProductItemProps) {
         setValue('price', price);
         setValue('description', description);
         setValue('categories', categories);
-    }, [id]);
+    }, [id, categories, description, name, price, setValue]);
 
     useEffect(() => {
         loadCategories();
@@ -105,7 +105,7 @@ export default function EditForm(productDetails: ProductItemProps) {
                 </div>
             </div>
             <div className={`d-flex flex-row ${styles.buttonContainer}`}>
-                <Link href='/admin'>
+                <Link href='/admin' passHref>
                     <button type='button' className={styles.btnCancel}>
                         Cancelar
                     </button>

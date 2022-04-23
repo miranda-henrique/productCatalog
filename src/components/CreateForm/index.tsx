@@ -17,12 +17,17 @@ export default function CreateForm() {
             ...form,
         };
 
+        let localToken: string = '';
+        if (typeof window !== 'undefined') {
+            localToken = String(localStorage.getItem('@dscatalog/item'));
+        }
+
         await api({
             url: `/products/`,
             method: 'POST',
             data: data,
             headers: {
-                Authorization: `Bearer ${JSON.parse(localStorage.getItem('@dscatalog/token') ?? '')}`,
+                Authorization: `Bearer ${JSON.parse(localToken) ?? ''}`,
             }
         });
 
@@ -97,7 +102,7 @@ export default function CreateForm() {
                 </div>
             </div>
             <div className={`d-flex flex-row ${styles.buttonContainer}`}>
-                <Link href='/admin'>
+                <Link href='/admin' passHref>
                     <button type='button' className={styles.btnCancel}>
                         Cancelar
                     </button>
