@@ -110,7 +110,7 @@ export default function AuthPage() {
                                 <span className={styles.notRegistered}>
                                     Não possui cadastro?
                                 </span>
-                                <Link href='/auth/register'>
+                                <Link href='/'>
                                     <a className={styles.signUpButton}>
                                         CADASTRAR
                                     </a>

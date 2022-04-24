@@ -6,6 +6,7 @@ import { api } from '../../utils/api';
 import Link from 'next/link';
 
 import styles from './EditForm.module.css';
+import ImageUpload from '../ImageUpload';
 
 
 export default function EditForm(productDetails: ProductItemProps) {

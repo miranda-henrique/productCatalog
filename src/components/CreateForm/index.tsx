@@ -6,10 +6,15 @@ import { api } from '../../utils/api';
 import Link from 'next/link';
 
 import styles from './CreateForm.module.css';
+import ImageUpload from '../ImageUpload';
+import { GetStorageItem } from '../../utils/getStorageItem';
 
 
 export default function CreateForm() {
     const [availableCategories, setAvailableCategories] = useState<Category[]>();
+    const [uploadedImgUrl, setUploadedImgUrl] = useState('');
+    const [productImgUrl, setProductImgUrl] = useState('');
+
     const { register, handleSubmit, formState: { errors }, control } = useForm();
 
     const onSubmit = async (form: ProductItemPropsEditForm) => {
@@ -23,7 +28,7 @@ export default function CreateForm() {
         }
 
         await api({
-            url: `/products/`,
+            url: `/products`,
             method: 'POST',
             data: data,
             headers: {
@@ -38,6 +43,10 @@ export default function CreateForm() {
     const loadCategories = async () => {
         const response = await api({ url: '/categories' });
         setAvailableCategories(response.data.content);
+    };
+
+    const onUploadSuccess = (imgUrl: string) => {
+        setUploadedImgUrl(imgUrl);
     };
 
     useEffect(() => {
@@ -86,11 +95,10 @@ export default function CreateForm() {
                         placeholder='Preço R$'
                         className={`form-control`}
                     />
-                    <input
-                        type='text'
-                        {...register('imgUrl')}
-                        name='imgUrl'
-                    />
+                    {/* <ImageUpload
+                        onUploadSuccess={onUploadSuccess}
+                        productImgUrl={productImgUrl}
+                    /> */}
                 </div>
                 <div className={`col-md-6 p-2`}>
                     <textarea
